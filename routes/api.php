@@ -24,15 +24,13 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/artists', [ArtistController::class, 'index']);
 Route::get('/artists/{id}', [ArtistController::class, 'show']);
+Route::get('/artists/search/{name}', [ArtistController::class, 'search']);
 
 //Protected routes
 Route::group(['middleware'=>['auth:sanctum']], function() {
-    Route::post('/artists', function() {
-        return Artist::create([
-            'firstname'=>'Sull',
-            'lastname'=>'Bob',
-        ]);
-    });
+    Route::post('/artists', [AuthController::class, 'store']);
+    Route::put('/artists/{id}', [AuthController::class, 'update']);
+    Route::delete('/artists/{id}', [AuthController::class, 'destroy']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 

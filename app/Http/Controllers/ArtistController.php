@@ -94,4 +94,16 @@ class ArtistController extends Controller
     {
         return Artist::destroy($id);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function search($name)
+    {
+        return Artist::where('firstname','LIKE',"%$name%")
+            ->orWhere('lastname','LIKE',"%$name%")->get();
+    }
 }
